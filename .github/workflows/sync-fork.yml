@@ -1,0 +1,21 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # This cron expression runs the action every day at midnight (00:00).
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgymnich/fork-sync@v2.0
+        with:
+          # The token to access the GitHub API; automatically generated with limited scopes
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          # The base branch (your fork's branch)
+          base: master 
+          # The head branch (the upstream branch)
+          head: master 
+          # Use 'merge' to sync without losing local changes, 'rebase' or 'squash' are also options
+          merge_method: merge
